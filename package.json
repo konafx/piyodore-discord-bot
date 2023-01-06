@@ -2,11 +2,13 @@
   "name": "piyodore-discord-bot",
   "packageManager": "yarn@3.3.1",
   "scripts": {
-    "start": "yarn run build:live",
-    "build": "tsc -p .",
-    "build:live": "nodemon --watch 'src/**/*.ts' --exec \"ts-node\" src/index.ts"
+    "start": "node ./.dist/main.ts",
+    "compile": "tsc -p /",
+    "dev": "ts-node src/main.ts",
+    "dev:watch": "nodemon --watch 'src/**/*.ts' --exec yarn run dev"
   },
   "dependencies": {
+    "discord-api-types": "^0.37.26",
     "discord.js": "^14.7.1"
   },
   "devDependencies": {
