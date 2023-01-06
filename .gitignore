@@ -103,7 +103,13 @@ dist
 # TernJS port file
 .tern-port
 
-# .yarn
+# build
+.dist/
+
+# sqlite
+.sqlite/
+
+# dependency (non zero-install)
 .pnp.*
 .yarn/*
 !.yarn/patches
