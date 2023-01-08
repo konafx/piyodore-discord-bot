@@ -1,1 +1,1 @@
-export * from "./interactionCreate";
+export * from './interactionCreate';
