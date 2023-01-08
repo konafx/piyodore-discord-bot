@@ -4,8 +4,8 @@
   "scripts": {
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "node ./.dist/main.ts",
-    "prebuild": "rimraf dist",
-    "build": "tsc -p ./",
+    "prebuild": "rimraf ./.dist",
+    "build": "yarn run prebuild && tsc -p ./",
     "dev": "ts-node src/main.ts",
     "dev:watch": "nodemon --watch 'src/**/*.ts' --exec yarn run dev"
   },
