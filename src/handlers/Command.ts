@@ -1,16 +1,14 @@
-import { Client, REST, Routes } from "discord.js";
-import { RESTPutAPIApplicationGuildCommandsResult } from "discord-api-types/v10";
-import Config from "../config";
-import { BotCommand } from "../types";
+import { Client, REST, Routes } from 'discord.js';
+import { RESTPutAPIApplicationGuildCommandsResult } from 'discord-api-types/v10';
+import Config from '../config';
+import { BotCommand } from '../types';
 
-import { UserCommand } from "../commands";
+import { UserCommand } from '../commands';
 
-const commands: Array<BotCommand> = [
-  UserCommand,
-]
+const commands: Array<BotCommand> = [UserCommand];
 
 const registerCommand = async (client: Client) => {
-  const rest = new REST({version: '10'}).setToken(Config.token)
+  const rest = new REST({ version: '10' }).setToken(Config.token);
 
   /**
   for (const command of commands) {
@@ -28,23 +26,23 @@ const registerCommand = async (client: Client) => {
   }
   **/
 
-  const result: unknown = await rest.put(
-    Routes.applicationGuildCommands(Config.clientId, Config.guildId), {
-    body: commands.map(command => command.command.toJSON())
-  })
-  .catch(err => {
-    console.error(err)
-    return
-  })
+  const result: unknown = await rest
+    .put(Routes.applicationGuildCommands(Config.clientId, Config.guildId), {
+      body: commands.map((command) => command.command.toJSON()),
+    })
+    .catch((err) => {
+      console.error(err);
+      return;
+    });
 
-  const data = result as any as RESTPutAPIApplicationGuildCommandsResult
+  const data = result as any as RESTPutAPIApplicationGuildCommandsResult;
   for (const command of commands) {
-    client.commands.set(command.command.name, command)
-    client.cooldowns.set(command.command.name, command.cooldown)
+    client.commands.set(command.command.name, command);
+    client.cooldowns.set(command.command.name, command.cooldown);
   }
-  console.log(`🔥 Successfully loaded ${data.length} slash command(s)`)
-}
+  console.log(`🔥 Successfully loaded ${data.length} slash command(s)`);
+};
 
 export default function handler(client: Client) {
-  registerCommand(client)
+  registerCommand(client);
 }

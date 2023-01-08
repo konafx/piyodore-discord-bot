@@ -1,4 +1,4 @@
-import { AutocompleteInteraction, CommandInteraction } from "discord.js";
+import { AutocompleteInteraction, CommandInteraction } from 'discord.js';
 
 interface BotCommand {
   command: SlashCommandBuilder;
@@ -10,12 +10,12 @@ interface BotCommand {
 interface BotEvent {
   name: string;
   once?: boolean | false;
-  execute: (...args?) => void;
+  execute: (...args) => void;
 }
 
-declare module "discord.js" {
+declare module 'discord.js' {
   export interface Client {
-    commands: Collection<string, BotCommand>,
-    cooldowns: Collection<string, number>
+    commands: Collection<string, BotCommand>;
+    cooldowns: Collection<string, number>;
   }
 }
