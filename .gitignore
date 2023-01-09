@@ -106,9 +106,6 @@ dist
 # build
 .dist/
 
-# sqlite
-.sqlite/
-
 # dependency (non zero-install)
 .pnp.*
 .yarn/*
@@ -117,3 +114,7 @@ dist
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# prisma
+prisma/dev.db
+*/**/generated/*

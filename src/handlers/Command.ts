@@ -3,9 +3,11 @@ import { RESTPutAPIApplicationGuildCommandsResult } from 'discord-api-types/v10'
 import Config from '../config';
 import { BotCommand } from '../types';
 
-import { UserCommand } from '../commands';
+import { UserCommand, CountCommand } from '../commands';
 
-const commands: Array<BotCommand> = [UserCommand];
+const commands: Array<BotCommand> = [
+  UserCommand, CountCommand
+];
 
 const registerCommand = async (client: Client) => {
   const rest = new REST({ version: '10' }).setToken(Config.token);
