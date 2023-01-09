@@ -7,7 +7,9 @@
     "prebuild": "rimraf ./.dist",
     "build": "yarn run prebuild && tsc -p ./",
     "dev": "ts-node src/main.ts",
-    "dev:watch": "nodemon --watch 'src/**/*.ts' --exec yarn run dev"
+    "dev:watch": "nodemon --watch src --ext ts --exec ts-node --ignore '*.test.ts' src/main.ts",
+    "dev:container": "docker compose up -d",
+    "dev:container:nocache": "yarn run dev:container --build"
   },
   "dependencies": {
     "discord-api-types": "^0.37.26",

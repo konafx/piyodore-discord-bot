@@ -4,7 +4,7 @@ import { BotCommand } from '../types';
 export const UserCommand: BotCommand = {
   command: new SlashCommandBuilder().setName('user').setDescription('get user'),
   execute: (interaction) => {
-    const userTag = interaction.user.username;
-    interaction.reply(`get user: ${userTag}`);
+    const name = interaction.user.tag;
+    interaction.reply(`get user: ${name}`);
   },
 };
