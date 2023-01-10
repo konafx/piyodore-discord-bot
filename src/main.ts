@@ -10,10 +10,13 @@ import { CommandHandler, EventHandler } from './handlers';
   client.commands = new Collection<string, BotCommand>();
   client.cooldowns = new Collection<string, number>();
 
-  CommandHandler(client);
-  EventHandler(client);
+  await CommandHandler(client);
+  await EventHandler(client);
 
   client.once(Events.ClientReady, async (c) => {
     console.log(`Ready! Logged in as ${c.user?.tag}`);
   });
 })();
+
+process.on('exit', exitCode => {
+})

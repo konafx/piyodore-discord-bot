@@ -3,13 +3,15 @@ import { RESTPutAPIApplicationGuildCommandsResult } from 'discord-api-types/v10'
 import Config from '../config';
 import { BotCommand } from '../types';
 
-import { UserCommand, CountCommand } from '../commands';
+import { UserCommand, CountCommand, DensukeCommand } from '../commands';
 
 const commands: Array<BotCommand> = [
-  UserCommand, CountCommand
+  // UserCommand, CountCommand,
+  DensukeCommand
 ];
 
 const registerCommand = async (client: Client) => {
+  console.log('registerCommand')
   const rest = new REST({ version: '10' }).setToken(Config.token);
 
   /**
@@ -39,12 +41,13 @@ const registerCommand = async (client: Client) => {
 
   const data = result as any as RESTPutAPIApplicationGuildCommandsResult;
   for (const command of commands) {
+    command.data = data.find(d => d.name === command.command.name)
     client.commands.set(command.command.name, command);
     client.cooldowns.set(command.command.name, command.cooldown);
   }
   console.log(`🔥 Successfully loaded ${data.length} slash command(s)`);
 };
 
-export default function handler(client: Client) {
-  registerCommand(client);
+export default async function handler(client: Client) {
+  await registerCommand(client);
 }
