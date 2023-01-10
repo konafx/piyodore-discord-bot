@@ -4,7 +4,7 @@ import { BotEvent } from '../types';
 
 const events: Array<BotEvent> = [interactionCreateEvent];
 
-export default function handler(client: Client) {
+export default async function handler(client: Client) {
   for (const event of events) {
     event.once
       ? client.once(event.name, (...args) => event.execute(...args))

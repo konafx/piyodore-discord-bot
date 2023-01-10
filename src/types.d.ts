@@ -1,10 +1,12 @@
 import { AutocompleteInteraction, CommandInteraction } from 'discord.js';
+import { RawApplicationCommandData } from 'discord.js/typings/rawDataTypes';
 
 interface BotCommand {
   command: SlashCommandBuilder;
-  execute: (interation: CommandInteraction) => void;
+  execute: (interation: Interaction) => void;
   autocomplete?: (interation: AutocompleteInteraction) => void;
   cooldown?: number;
+  data?: RawApplicationCommandData
 }
 
 interface BotEvent {

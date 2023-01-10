@@ -3,7 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
-  output = "../src/api/server/generated"
+  output   = "../src/api/server/generated"
 }
 
 datasource db {
@@ -12,13 +12,54 @@ datasource db {
 }
 
 model Count {
-  id        Int      @id @default(autoincrement())
-  userId    String
-  guildId   String
-  count     Int      @default(0)
+  id      Int    @id @default(autoincrement())
+  userId  String
+  guildId String
+  count   Int    @default(0)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@unique([userId, guildId])
+}
+
+model Event {
+  id    Int            @id @default(autoincrement())
+  name  String
+
+  host User @relation(fields:[hostId], references: [id])
+  hostId Int
+
+  plans SchedulePlan[]
+}
+
+model SchedulePlan {
+  id Int @id @default(autoincrement())
+
+  start   DateTime
+  end    DateTime?
+
+  event   Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  eventId Int
+
+  attendances Attendance[]
+}
+
+model User {
+  id     Int    @id @default(autoincrement())
+  userId String @unique
+
+  hostings Event[]
+  attendances Attendance[]
+}
+
+model Attendance {
+  id   Int @id @default(autoincrement())
+  odds Int // range: [0, 100]
+
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
+
+  plan   SchedulePlan @relation(fields: [planId], references: [id], onDelete: Cascade)
+  planId Int
 }
