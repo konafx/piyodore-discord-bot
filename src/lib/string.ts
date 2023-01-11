@@ -1,4 +1,4 @@
-import { StringOfLength } from "../types";
+import { StringOfLength } from '../types';
 
 // https://stackoverflow.com/questions/51813272/declaring-string-type-with-min-max-length-in-typescript
 
@@ -16,14 +16,13 @@ export const stringOfLength = <Min extends number, Max extends number>(
   min: Min,
   max: Max
 ): StringOfLength<Min, Max> => {
-  if (typeof input !== "string") {
-    throw new Error("invalid input");
+  if (typeof input !== 'string') {
+    throw new Error('invalid input');
   }
 
   if (!isStringOfLength(input, min, max)) {
-    throw new Error("input is not between specified min and max");
+    throw new Error('input is not between specified min and max');
   }
 
   return input; // the type of input here is now StringOfLength<Min,Max>
 };
-

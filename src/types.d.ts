@@ -1,17 +1,17 @@
 import { AutocompleteInteraction, CommandInteraction } from 'discord.js';
-import { RawApplicationCommandData } from 'discord.js/typings/rawDataTypes';
 
 // https://stackoverflow.com/questions/51813272/declaring-string-type-with-min-max-length-in-typescript
 type StringOfLength<Min, Max> = string & {
-  StringOfLength: unique symbol // this is the phantom type
+  StringOfLength: unique symbol; // this is the phantom type
 };
 
 interface BotCommand {
+  id?: string;
   command: SlashCommandBuilder;
   execute: (interation: Interaction) => void;
   autocomplete?: (interation: AutocompleteInteraction) => void;
+  buttons?: BotButton[];
   cooldown?: number;
-  data?: RawApplicationCommandData
 }
 
 interface BotEvent {
@@ -20,8 +20,8 @@ interface BotEvent {
   execute: (...args) => void;
 }
 
-type BotButtonCommandName = StringOfLength<1,32>
-type BotButtonCustomId = StringOfLength<1,36>
+type BotButtonCommandName = StringOfLength<1, 32>;
+type BotButtonCustomId = StringOfLength<1, 36>;
 
 interface BotButton {
   commandName: BotButtonCommandName;
