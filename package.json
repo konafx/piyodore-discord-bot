@@ -1,19 +1,20 @@
 {
   "name": "piyodore-discord-bot",
-  "packageManager": "yarn@3.3.1",
+  "packageManager": "pnpm@7.24.3",
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "schema:format": "prisma format",
-    "db:generate": "yarn pnpify prisma generate",
-    "db:migrate": "yarn pnpify prisma migrate dev",
-    "db:migrate:reset": "yarn pnpify prisma migrate reset",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:migrate:reset": "prisma migrate reset",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "node ./.dist/main.ts",
     "prebuild": "rimraf ./.dist",
-    "build": "yarn db:generate && yarn run prebuild && tsc -p ./",
-    "dev": "yarn db:generate && ts-node src/main.ts",
+    "build": "pnpm db:generate && tsc -p ./",
+    "dev": "pnpm db:generate && ts-node src/main.ts",
     "dev:watch": "nodemon --watch src --ext ts --exec ts-node --ignore '*.test.ts' src/main.ts",
     "dev:container": "docker compose up -d",
-    "dev:container:nocache": "yarn run dev:container --build"
+    "dev:container:nocache": "pnpm run dev:container --build"
   },
   "dependencies": {
     "@prisma/client": "4.8.1",
@@ -22,7 +23,6 @@
   },
   "devDependencies": {
     "@types/node": "^18.11.18",
-    "@yarnpkg/pnpify": "^4.0.0-rc.35",
     "eslint": "^8.31.0",
     "eslint-config-prettier": "^8.6.0",
     "nodemon": "^2.0.20",
