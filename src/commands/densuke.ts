@@ -1,4 +1,4 @@
-import { ActionRowBuilder, ButtonBuilder, Interaction, SlashCommandBuilder, SlashCommandSubcommandBuilder } from 'discord.js';
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, Interaction, SlashCommandBuilder, SlashCommandSubcommandBuilder } from 'discord.js';
 import { BotCommand } from '../types';
 // import { prisma } from '../lib/db';
 import { when, eq } from "../lib/switch";
@@ -23,15 +23,15 @@ export const DensukeCommand: BotCommand = {
   execute: async (interaction: Interaction) => {
     if (interaction.isChatInputCommand()) {
       const result = when(interaction.options.getSubcommand())
-        .on(eq('create'), () => {
-          const row = ActionRowBuilder()
+        .on(eq('create'), async () => {
+          const row = new ActionRowBuilder()
             .addComponents(
               new ButtonBuilder()
                 .setCustomId('test')
                 .setEmoji(":party:")
-                .setName('testname')
+                .setStyle(ButtonStyle.Link)
             )
-          interaction.reply({
+          await interaction.reply({
             content: 'create',
             components: [row]
           })
