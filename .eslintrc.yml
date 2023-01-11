@@ -11,7 +11,10 @@ parserOptions:
   sourceType: module
   project: ./tsconfig.json
 plugins:
-  - jest
+# - jest
   - '@typescript-eslint'
 rules:
-  'jsx-a11y/anchor-is-valid': 0
+  jsx-a11y/anchor-is-valid: 0
+  no-unused-vars:
+    - 2
+    - argsIgnorePattern: '^_'

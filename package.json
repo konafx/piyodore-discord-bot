@@ -7,12 +7,13 @@
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:migrate:reset": "prisma migrate reset",
+    "lint": "eslint --ignore-path .gitignore src/**/*.ts",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "node ./.dist/main.ts",
     "prebuild": "rimraf ./.dist",
     "build": "pnpm db:generate && tsc -p ./",
-    "dev": "pnpm db:generate && ts-node src/main.ts",
-    "dev:watch": "nodemon --watch src --ext ts --exec ts-node --ignore '*.test.ts' src/main.ts",
+    "dev": "pnpm db:generate && ts-node -r tsconfig-paths/register src/main.ts",
+    "dev:watch": "nodemon --watch src --ext ts --exec 'ts-node -r tsconfig-paths/register' --ignore '*.test.ts' src/main.ts",
     "dev:container": "docker compose up -d",
     "dev:container:nocache": "pnpm run dev:container --build"
   },
@@ -23,6 +24,8 @@
   },
   "devDependencies": {
     "@types/node": "^18.11.18",
+    "@typescript-eslint/eslint-plugin": "^5.48.1",
+    "@typescript-eslint/parser": "^5.48.1",
     "eslint": "^8.31.0",
     "eslint-config-prettier": "^8.6.0",
     "nodemon": "^2.0.20",
@@ -30,6 +33,7 @@
     "prisma": "4.8.1",
     "rimraf": "^3.0.2",
     "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.1.2",
     "typescript": "^4.9.4"
   }
 }
