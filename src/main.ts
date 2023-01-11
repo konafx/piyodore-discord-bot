@@ -18,5 +18,5 @@ import { CommandHandler, EventHandler } from './handlers';
   });
 })();
 
-process.on('exit', exitCode => {
-})
+// process.on('exit', exitCode => {
+// })

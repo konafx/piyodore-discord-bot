@@ -1,17 +1,17 @@
 import { Client, REST, Routes } from 'discord.js';
 import { RESTPutAPIApplicationGuildCommandsResult } from 'discord-api-types/v10';
-import Config from '../config';
-import { BotCommand } from '../types';
+import Config from '~/config';
+import { BotCommand } from '~/types';
 
-import { UserCommand, CountCommand, DensukeCommand } from '../commands';
+import { UserCommand, CountCommand, DensukeCommand } from '~/commands';
 
 const commands: Array<BotCommand> = [
   // UserCommand, CountCommand,
-  DensukeCommand
+  DensukeCommand,
 ];
 
 const registerCommand = async (client: Client) => {
-  console.log('registerCommand')
+  console.log('registerCommand');
   const rest = new REST({ version: '10' }).setToken(Config.token);
 
   /**
@@ -41,7 +41,7 @@ const registerCommand = async (client: Client) => {
 
   const data = result as any as RESTPutAPIApplicationGuildCommandsResult;
   for (const command of commands) {
-    command.data = data.find(d => d.name === command.command.name)
+    command.id = data.find((d) => d.name === command.command.name)?.id;
     client.commands.set(command.command.name, command);
     client.cooldowns.set(command.command.name, command.cooldown);
   }

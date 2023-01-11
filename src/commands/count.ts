@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from 'discord.js';
-import { BotCommand } from '../types';
-import { prisma } from '../lib/db';
+import { BotCommand } from '~/types';
+import { prisma } from '~/lib/db';
 
 export const CountCommand: BotCommand = {
   command: new SlashCommandBuilder().setName('count').setDescription('count'),
@@ -9,38 +9,38 @@ export const CountCommand: BotCommand = {
     const guildId = interaction.guild?.id;
     if (!guildId) {
       interaction.reply({
-        content: "Failed",
+        content: 'Failed',
         ephemeral: true,
-      })
-      return
+      });
+      return;
     }
 
     const countData = await prisma.count.upsert({
       where: {
         userId_guildId: {
           userId,
-          guildId
-        }
+          guildId,
+        },
       },
       update: {},
       create: {
         userId,
         guildId,
         count: 0,
-      }
-    })
+      },
+    });
 
     const incrementedData = await prisma.count.update({
       where: {
         userId_guildId: {
           userId,
-          guildId
-        }
+          guildId,
+        },
       },
       data: {
-        count: countData.count + 1
-      }
-    })
+        count: countData.count + 1,
+      },
+    });
 
     interaction.reply(`Your count is ${incrementedData.count}!`);
   },
