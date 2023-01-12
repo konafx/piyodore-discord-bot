@@ -15,7 +15,8 @@
     "dev": "pnpm db:generate && ts-node -r tsconfig-paths/register src/main.ts",
     "dev:watch": "nodemon --watch src --ext ts --exec 'ts-node -r tsconfig-paths/register' --ignore '*.test.ts' src/main.ts",
     "dev:container": "docker compose up -d",
-    "dev:container:nocache": "pnpm run dev:container --build"
+    "dev:container:nocache": "pnpm run dev:container --build",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@prisma/client": "4.8.1",
@@ -28,6 +29,8 @@
     "@typescript-eslint/parser": "^5.48.1",
     "eslint": "^8.31.0",
     "eslint-config-prettier": "^8.6.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^13.1.0",
     "nodemon": "^2.0.20",
     "prettier": "^2.8.2",
     "prisma": "4.8.1",
