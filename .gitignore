@@ -117,4 +117,5 @@ dist
 
 # prisma
 prisma/dev.db
+prisma/dev.db-journal
 */**/generated/*
