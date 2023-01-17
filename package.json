@@ -1,6 +1,6 @@
 {
   "name": "piyodore-discord-bot",
-  "packageManager": "pnpm@7.24.3",
+  "packageManager": "pnpm@7.25.0",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "schema:format": "prisma format",
