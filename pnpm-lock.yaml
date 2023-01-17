@@ -5,6 +5,7 @@ specifiers:
   '@commitlint/config-conventional': ^17.4.0
   '@prisma/client': 4.8.1
   '@types/node': ^18.11.18
+  '@types/node-emoji': ^1.8.2
   '@typescript-eslint/eslint-plugin': ^5.48.1
   '@typescript-eslint/parser': ^5.48.1
   discord-api-types: ^0.37.26
@@ -13,6 +14,7 @@ specifiers:
   eslint-config-prettier: ^8.6.0
   husky: ^8.0.0
   lint-staged: ^13.1.0
+  node-emoji: ^1.11.0
   nodemon: ^2.0.20
   prettier: ^2.8.2
   prisma: 4.8.1
@@ -25,11 +27,13 @@ dependencies:
   '@prisma/client': 4.8.1_prisma@4.8.1
   discord-api-types: 0.37.26
   discord.js: 14.7.1
+  node-emoji: 1.11.0
 
 devDependencies:
   '@commitlint/cli': 17.4.1
   '@commitlint/config-conventional': 17.4.0
   '@types/node': 18.11.18
+  '@types/node-emoji': 1.8.2
   '@typescript-eslint/eslint-plugin': 5.48.1_3jon24igvnqaqexgwtxk6nkpse
   '@typescript-eslint/parser': 5.48.1_iukboom6ndih5an6iafl45j2fe
   eslint: 8.31.0
@@ -418,6 +422,10 @@ packages:
 
   /@types/minimist/1.2.2:
     resolution: {integrity: sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==}
+    dev: true
+
+  /@types/node-emoji/1.8.2:
+    resolution: {integrity: sha512-PfF1qL/9veo8BSHLV84C9ORNr3lHSlnWJ6yU8OdNufoftajeWHTLVbGHvp2B7e7DPDS9gMs6cfeSsqo5rqSitg==}
     dev: true
 
   /@types/node/18.11.18:
@@ -1855,6 +1863,12 @@ packages:
   /natural-compare/1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
     dev: true
+
+  /node-emoji/1.11.0:
+    resolution: {integrity: sha512-wo2DpQkQp7Sjm2A0cq+sN7EHKO6Sl0ctXeBdFZrL9T9+UywORbufTcTZxom8YqpLQt/FqNMUkOpkZrJVYSKD3A==}
+    dependencies:
+      lodash: 4.17.21
+    dev: false
 
   /nodemon/2.0.20:
     resolution: {integrity: sha512-Km2mWHKKY5GzRg6i1j5OxOHQtuvVsgskLfigG25yTtbyfRGn/GNvIbRyOf1PSCKJ2aT/58TiuUsuOU5UToVViw==}
