@@ -1,14 +1,7 @@
-import {
-  ActionRowBuilder,
-  ButtonBuilder,
-  ButtonStyle,
-  Interaction,
-  SlashCommandBuilder,
-  SlashCommandSubcommandBuilder,
-} from 'discord.js';
+import { Interaction, SlashCommandBuilder, SlashCommandSubcommandBuilder } from 'discord.js';
 import { eq, when } from '~/lib/when';
 import { BotCommand } from '~/types';
-import emoji from 'node-emoji';
+import { ChoseiHostPage } from './pages/host.page';
 
 export const ChoseiCommand: BotCommand = {
   command: new SlashCommandBuilder()
@@ -23,20 +16,7 @@ export const ChoseiCommand: BotCommand = {
     if (interaction.isChatInputCommand()) {
       const result = when(interaction.options.getSubcommand())
         .on(eq('host'), async () => {
-          const adminMenu = new ActionRowBuilder<ButtonBuilder>().addComponents(
-            new ButtonBuilder().setCustomId('edit').setLabel('Edit').setStyle(ButtonStyle.Secondary),
-            new ButtonBuilder().setCustomId('add').setLabel('Add').setStyle(ButtonStyle.Secondary),
-            new ButtonBuilder().setCustomId('confirm').setLabel('Confirm').setStyle(ButtonStyle.Success)
-          );
-          const replyMenu = new ActionRowBuilder<ButtonBuilder>().addComponents(
-            new ButtonBuilder().setCustomId('reply').setLabel('Reply').setStyle(ButtonStyle.Primary),
-            new ButtonBuilder().setCustomId('heart').setEmoji(emoji.get('heartpulse')).setStyle(ButtonStyle.Secondary),
-            new ButtonBuilder().setCustomId('sorry').setEmoji(emoji.get('man-bowing')).setStyle(ButtonStyle.Secondary)
-          );
-          await interaction.reply({
-            content: 'hello',
-            components: [adminMenu, replyMenu],
-          });
+          await interaction.reply(ChoseiHostPage('test', 'sample'));
           return 'host';
         })
         .otherwise(async () => {
@@ -57,6 +37,12 @@ export const ChoseiCommand: BotCommand = {
         ephemeral: true,
       });
       return;
+    }
+    if (interaction.isModalSubmit()) {
+      const name = interaction.fields.getTextInputValue('eventNameInput');
+      const detail = interaction.fields.getTextInputValue('eventDetailInput');
+      await interaction.reply(ChoseiHostPage(name, detail));
+      return 'modal submit';
     }
   },
 };
