@@ -13,7 +13,6 @@ const event: BotEvent = {
       command.execute(i);
     }
     if (i.isButton()) {
-      console.log(i);
       const commandName = i.message.interaction?.commandName;
       const command = i.client.commands.get(commandName);
       if (!command) {
@@ -25,6 +24,10 @@ const event: BotEvent = {
         await i.reply({ content: 'test', components: [row] });
         return;
       }
+      command.execute(i);
+    }
+    if (i.isModalSubmit() && i.customId == 'hostForm') {
+      const command = i.client.commands.get('chosei');
       command.execute(i);
     }
     return;
