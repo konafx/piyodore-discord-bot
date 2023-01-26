@@ -1,18 +1,30 @@
-import { AutocompleteInteraction } from 'discord.js';
+import { AutocompleteInteraction, ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
 
 interface BotCommand {
   id?: string;
   command: SlashCommandBuilder;
   execute: (interation: Interaction) => void;
   autocomplete?: (interation: AutocompleteInteraction) => void;
-  buttons?: BotButton[];
+  actions?: BotAction[];
   cooldown?: number;
+  subCommands?: BotSubCommand[];
+}
+
+interface BotSubCommand {
+  name: string;
+  command: (cmd: SlashCommandSubcommandBuilder) => SlashCommandSubcommandBuilder;
+  handler: (i: ChatInputCommandInteraction) => void;
 }
 
 interface BotEvent {
   name: string;
   once?: boolean | false;
   execute: (...args) => void;
+}
+
+interface BotAction {
+  route: Route;
+  handler: (...args) => void;
 }
 
 type RouteCommandName = StringOfLength<1, 32>;
