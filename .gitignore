@@ -119,3 +119,4 @@ dist
 prisma/dev.db
 prisma/dev.db-journal
 */**/generated/*
+prisma/migrations
