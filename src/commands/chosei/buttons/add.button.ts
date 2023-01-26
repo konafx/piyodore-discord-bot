@@ -1,13 +1,13 @@
 import { ButtonBuilder, ButtonInteraction } from 'discord.js';
-import { botButtonStringify, botButtonCustomId, botButtonCommandName } from '~/lib/botButton';
+import { routeStringify, routeCustomId, routeCommandName } from '~/lib/route';
 
-const customId = 'add';
+const customId = 'addButton';
 
 export const ChoseiAddButton = {
   customId,
   customButton: (commandName: string) =>
     new ButtonBuilder()
-      .setCustomId(botButtonStringify(botButtonCommandName(commandName), botButtonCustomId(customId)))
+      .setCustomId(routeStringify(routeCommandName(commandName), routeCustomId(customId)))
       .setLabel('Add'),
   handler: async (i: ButtonInteraction) => {
     i.reply({
