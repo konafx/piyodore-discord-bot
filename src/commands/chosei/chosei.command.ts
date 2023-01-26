@@ -1,14 +1,7 @@
-import {
-  ActionRowBuilder,
-  Interaction,
-  ModalBuilder,
-  SlashCommandBuilder,
-  SlashCommandSubcommandBuilder,
-  TextInputBuilder,
-  TextInputStyle,
-} from 'discord.js';
+import { Interaction, SlashCommandBuilder, SlashCommandSubcommandBuilder } from 'discord.js';
 import { eq, when } from '~/lib/when';
 import { BotCommand } from '~/types';
+import { ChoseiHostForm } from './forms/host.form';
 import { ChoseiHostPage } from './pages/host.page';
 
 export const ChoseiCommand: BotCommand = {
@@ -44,35 +37,16 @@ export const ChoseiCommand: BotCommand = {
 
           if (name && detail) {
             await interaction.reply(ChoseiHostPage(name, detail));
+            return 'modalreply';
           }
 
-          const modal = new ModalBuilder().setCustomId('hostForm').setTitle('Host new event');
-
-          const eventNameInput = new TextInputBuilder()
-            .setCustomId('eventNameInput')
-            .setLabel('What name of event')
-            .setRequired()
-            .setStyle(TextInputStyle.Short);
-
-          if (name) {
-            eventNameInput.setValue(name);
-          }
-
-          const eventDetailInput = new TextInputBuilder()
-            .setCustomId('eventDetailInput')
-            .setLabel('detail')
-            .setMaxLength(100)
-            .setRequired(false)
-            .setStyle(TextInputStyle.Paragraph);
-
-          if (detail) {
-            eventDetailInput.setValue(detail);
-          }
-
-          modal.addComponents(
-            new ActionRowBuilder<TextInputBuilder>().addComponents(eventNameInput),
-            new ActionRowBuilder<TextInputBuilder>().addComponents(eventDetailInput)
-          );
+          const modal = ChoseiHostForm({
+            form: { title: 'Host new event' },
+            input: {
+              name: name ?? undefined,
+              detail: detail ?? undefined,
+            },
+          });
 
           await interaction.showModal(modal);
           return 'modal';
