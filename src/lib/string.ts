@@ -1,6 +1,7 @@
-import { StringOfLength } from '../types';
-
 // https://stackoverflow.com/questions/51813272/declaring-string-type-with-min-max-length-in-typescript
+type StringOfLength<_min, _max> = string & {
+  readonly StringOfLength: unique symbol; // this is the phantom type
+};
 
 // This is a type guard function which can be used to assert that a string
 // is of type StringOfLength<Min,Max>

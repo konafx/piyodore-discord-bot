@@ -1,14 +1,14 @@
 import { ButtonBuilder, ButtonInteraction } from 'discord.js';
 import emoji from 'node-emoji';
-import { botButtonStringify, botButtonCustomId, botButtonCommandName } from '~/lib/botButton';
+import { routeStringify, routeCustomId, routeCommandName } from '~/lib/route';
 
-const customId = 'heart';
+const customId = 'heartButton';
 
 export const ChoseiHeartButton = {
   customId,
   customButton: (commandName: string) =>
     new ButtonBuilder()
-      .setCustomId(botButtonStringify(botButtonCommandName(commandName), botButtonCustomId(customId)))
+      .setCustomId(routeStringify(routeCommandName(commandName), routeCustomId(customId)))
       .setEmoji(emoji.get('heartpulse')),
   handler: async (i: ButtonInteraction) => {
     i.reply({

@@ -1,14 +1,14 @@
 import { ButtonBuilder, ButtonInteraction } from 'discord.js';
 import emoji from 'node-emoji';
-import { botButtonStringify, botButtonCustomId, botButtonCommandName } from '~/lib/botButton';
+import { routeStringify, routeCustomId, routeCommandName } from '~/lib/route';
 
-const customId = 'sorry';
+const customId = 'sorryButton';
 
 export const ChoseiSorryButton = {
   customId,
   customButton: (commandName: string) =>
     new ButtonBuilder()
-      .setCustomId(botButtonStringify(botButtonCommandName(commandName), botButtonCustomId(customId)))
+      .setCustomId(routeStringify(routeCommandName(commandName), routeCustomId(customId)))
       .setEmoji(emoji.get('man-bowing')),
   handler: async (i: ButtonInteraction) => {
     i.reply({
