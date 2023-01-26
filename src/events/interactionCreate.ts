@@ -1,4 +1,5 @@
-import { Events, Interaction, ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js';
+import { Events, Interaction } from 'discord.js';
+import { ChoseiHostForm } from '~/commands/chosei/forms/host.form';
 import { BotEvent } from '~/types';
 
 const event: BotEvent = {
@@ -13,22 +14,10 @@ const event: BotEvent = {
       command.execute(i);
     }
     if (i.isButton()) {
-      const commandName = i.message.interaction?.commandName;
-      const command = i.client.commands.get(commandName);
-      if (!command) {
-        console.error('undefined message.interaction.commandName');
-        const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
-          new ButtonBuilder().setCustomId('party2').setEmoji('🥳').setStyle(ButtonStyle.Primary),
-          new ButtonBuilder().setCustomId('test2').setEmoji('✨').setStyle(ButtonStyle.Secondary)
-        );
-        await i.reply({ content: 'test', components: [row] });
-        return;
-      }
-      command.execute(i);
+      await i.reply({ content: 'test', ephemeral: true });
     }
-    if (i.isModalSubmit() && i.customId == 'hostForm') {
-      const command = i.client.commands.get('chosei');
-      command.execute(i);
+    if (i.isModalSubmit()) {
+      await ChoseiHostForm.handler(i);
     }
     return;
   },

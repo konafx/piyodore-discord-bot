@@ -23,43 +23,44 @@ model Count {
   @@unique([userId, guildId])
 }
 
-model Event {
-  id    Int            @id @default(autoincrement())
-  name  String
+model TentativeEvent {
+  id   Int    @id @default(autoincrement())
+  name String
 
-  host User @relation(fields:[hostId], references: [id])
-  hostId Int
+  hostUser   User @relation(fields: [hostUserId], references: [id])
+  hostUserId Int
 
-  plans SchedulePlan[]
+  jsonDiscordMessageIds String?
+
+  prospectiveDates ProspectiveDate[]
 }
 
-model SchedulePlan {
+model ProspectiveDate {
   id Int @id @default(autoincrement())
 
-  start   DateTime
-  end    DateTime?
+  start DateTime
 
-  event   Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
-  eventId Int
+  tentativeEvent   TentativeEvent @relation(fields: [tentativeEventId], references: [id], onDelete: Cascade)
+  tentativeEventId Int
 
-  attendances Attendance[]
+  replies Reply[]
 }
 
 model User {
-  id     Int    @id @default(autoincrement())
-  userId String @unique
+  id            Int    @id @default(autoincrement())
+  discordUserId String @unique
 
-  hostings Event[]
-  attendances Attendance[]
+  hostings TentativeEvent[]
+  replies  Reply[]
 }
 
-model Attendance {
+model Reply {
   id   Int @id @default(autoincrement())
   odds Int // range: [0, 100]
 
   user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId Int
 
-  plan   SchedulePlan @relation(fields: [planId], references: [id], onDelete: Cascade)
-  planId Int
+  prospectiveDate   ProspectiveDate @relation(fields: [prospectiveDateId], references: [id], onDelete: Cascade)
+  prospectiveDateId Int
 }

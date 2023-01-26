@@ -1,3 +1,3 @@
-import { User, Event, SchedulePlan, Attendance, PrismaClient } from '../api/server/generated';
+import { User, TentativeEvent, ProspectiveDate, Reply, PrismaClient } from '../api/server/generated';
 export const prisma = new PrismaClient();
-export { User, Event, SchedulePlan, Attendance };
+export { User, TentativeEvent, ProspectiveDate, Reply };

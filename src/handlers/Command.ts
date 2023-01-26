@@ -3,13 +3,9 @@ import { RESTPutAPIApplicationGuildCommandsResult } from 'discord-api-types/v10'
 import Config from '~/config';
 import { BotCommand } from '~/types';
 
-import { /*UserCommand, CountCommand, */ DensukeCommand, ChoseiCommand } from '~/commands';
+import { ChoseiCommand } from '~/commands';
 
-const commands: Array<BotCommand> = [
-  // UserCommand, CountCommand,
-  DensukeCommand,
-  ChoseiCommand,
-];
+const commands: Array<BotCommand> = [ChoseiCommand];
 
 const registerCommand = async (client: Client) => {
   console.log('registerCommand');
