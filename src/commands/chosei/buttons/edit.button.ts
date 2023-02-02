@@ -1,17 +1,10 @@
-import { ButtonBuilder, ButtonInteraction } from 'discord.js';
-import { routeStringify, routeCustomId, routeCommandName } from '~/lib/route';
+import { ButtonInteraction } from 'discord.js';
+import { ButtonHandler, PrepareCreateButton } from '~/lib/button';
 
-const customId = 'editButton';
-
-export const ChoseiEditButton = {
-  customId,
-  customButton: (commandName: string) =>
-    new ButtonBuilder()
-      .setCustomId(routeStringify(routeCommandName(commandName), routeCustomId(customId)))
-      .setLabel('Edit'),
-  handler: async (i: ButtonInteraction) => {
-    i.reply({
-      content: '[TODO] form',
-    });
-  },
+const handler: ButtonHandler = async (i: ButtonInteraction) => {
+  i.reply({
+    content: '[TODO] form',
+  });
 };
+
+export const CreateEditButton = PrepareCreateButton('editButton', handler, { label: 'Edit' });

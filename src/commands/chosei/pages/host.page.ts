@@ -6,12 +6,12 @@ import {
   EmbedBuilder,
   InteractionReplyOptions,
 } from 'discord.js';
-import { ChoseiEditButton } from '../buttons/edit.button';
-import { ChoseiAddButton } from '../buttons/add.button';
-import { ChoseiConfirmButton } from '../buttons/confirm.button';
-import { ChoseiReplyButton } from '../buttons/reply.button';
-import { ChoseiHeartButton } from '../buttons/heart.button';
-import { ChoseiSorryButton } from '../buttons/sorry.button';
+import { CreateEditButton } from '../buttons/edit.button';
+import { CreateAddButton } from '../buttons/add.button';
+import { CreateConfirmButton } from '../buttons/confirm.button';
+import { CreateReplyButton } from '../buttons/reply.button';
+import { CreateHeartButton } from '../buttons/heart.button';
+import { CreateSorryButton } from '../buttons/sorry.button';
 import { emojify } from 'node-emoji';
 
 type Option = {
@@ -63,6 +63,21 @@ const sampleTable: Option[] = [
 ];
 console.log(sampleTable);
 
+const buttons = {
+  host: [
+    CreateEditButton('chosei', { style: ButtonStyle.Secondary }),
+    CreateAddButton('chosei', { style: ButtonStyle.Secondary }),
+    CreateConfirmButton('chosei', { style: ButtonStyle.Success }),
+  ],
+  reply: [
+    CreateReplyButton('chosei', { style: ButtonStyle.Primary }),
+    CreateHeartButton('chosei', { style: ButtonStyle.Secondary }),
+    CreateSorryButton('chosei', { style: ButtonStyle.Secondary }),
+  ],
+};
+
+export { buttons as HostPageButtons };
+
 export const ChoseiHostPage = (name: string, detail: string): InteractionReplyOptions => ({
   ephemeral: false,
   embeds: [
@@ -72,15 +87,7 @@ export const ChoseiHostPage = (name: string, detail: string): InteractionReplyOp
       .setDescription(detail),
   ],
   components: [
-    new ActionRowBuilder<ButtonBuilder>().addComponents(
-      ChoseiEditButton.customButton('chosei').setStyle(ButtonStyle.Secondary),
-      ChoseiAddButton.customButton('chosei').setStyle(ButtonStyle.Secondary),
-      ChoseiConfirmButton.customButton('chosei').setStyle(ButtonStyle.Success)
-    ),
-    new ActionRowBuilder<ButtonBuilder>().addComponents(
-      ChoseiReplyButton.customButton('chosei').setStyle(ButtonStyle.Primary),
-      ChoseiHeartButton.customButton('chosei').setStyle(ButtonStyle.Secondary),
-      ChoseiSorryButton.customButton('chosei').setStyle(ButtonStyle.Secondary)
-    ),
+    new ActionRowBuilder<ButtonBuilder>().addComponents(...buttons.host.map((btn) => btn.customButton)),
+    new ActionRowBuilder<ButtonBuilder>().addComponents(...buttons.reply.map((btn) => btn.customButton)),
   ],
 });

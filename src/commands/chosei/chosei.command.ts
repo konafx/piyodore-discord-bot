@@ -1,5 +1,6 @@
 import { Interaction, SlashCommandBuilder } from 'discord.js';
 import { BotCommand } from '~/types';
+import { HostPageButtons } from './pages/host.page';
 import { HostSubCommand } from './subCommands/host.command';
 
 const subCommands = [HostSubCommand];
@@ -13,6 +14,7 @@ for (const subCommand of subCommands) {
 }
 
 export const ChoseiCommand: BotCommand = {
+  buttons: [...HostPageButtons.host, ...HostPageButtons.reply],
   subCommands,
   command,
   execute: async (i: Interaction) => {

@@ -1,17 +1,10 @@
-import { ButtonBuilder, ButtonInteraction } from 'discord.js';
-import { routeStringify, routeCustomId, routeCommandName } from '~/lib/route';
+import { ButtonInteraction } from 'discord.js';
+import { ButtonHandler, PrepareCreateButton } from '~/lib/button';
 
-const customId = 'addButton';
-
-export const ChoseiAddButton = {
-  customId,
-  customButton: (commandName: string) =>
-    new ButtonBuilder()
-      .setCustomId(routeStringify(routeCommandName(commandName), routeCustomId(customId)))
-      .setLabel('Add'),
-  handler: async (i: ButtonInteraction) => {
-    i.reply({
-      content: '[TODO] form',
-    });
-  },
+const handler: ButtonHandler = async (i: ButtonInteraction) => {
+  i.reply({
+    content: '[TODO] form',
+  });
 };
+
+export const CreateAddButton = PrepareCreateButton('addButton', handler, { label: 'Add' });

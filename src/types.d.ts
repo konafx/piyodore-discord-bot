@@ -1,8 +1,10 @@
 import { AutocompleteInteraction, ChatInputCommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js';
+import { Button } from './lib/button';
 
 interface BotCommand {
   id?: string;
   command: SlashCommandBuilder;
+  buttons?: Button[];
   execute: (interation: Interaction) => void;
   autocomplete?: (interation: AutocompleteInteraction) => void;
   actions?: BotAction[];
