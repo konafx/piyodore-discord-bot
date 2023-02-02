@@ -1,18 +1,11 @@
-import { ButtonBuilder, ButtonInteraction } from 'discord.js';
 import emoji from 'node-emoji';
-import { routeStringify, routeCustomId, routeCommandName } from '~/lib/route';
+import { ButtonInteraction } from 'discord.js';
+import { ButtonHandler, PrepareCreateButton } from '~/lib/button';
 
-const customId = 'heartButton';
-
-export const ChoseiHeartButton = {
-  customId,
-  customButton: (commandName: string) =>
-    new ButtonBuilder()
-      .setCustomId(routeStringify(routeCommandName(commandName), routeCustomId(customId)))
-      .setEmoji(emoji.get('heartpulse')),
-  handler: async (i: ButtonInteraction) => {
-    i.reply({
-      content: '[TODO] reply all ok',
-    });
-  },
+const handler: ButtonHandler = async (i: ButtonInteraction) => {
+  i.reply({
+    content: '[TODO] form',
+  });
 };
+
+export const CreateHeartButton = PrepareCreateButton('heartButton', handler, { emoji: emoji.get('heartpulse') });

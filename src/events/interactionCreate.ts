@@ -1,6 +1,7 @@
 import { Events, Interaction } from 'discord.js';
 import { ChoseiHostForm } from '~/commands/chosei/forms/host.form';
-import { BotEvent } from '~/types';
+import { routeParse } from '~/lib/route';
+import { BotCommand, BotEvent } from '~/types';
 
 const event: BotEvent = {
   name: Events.InteractionCreate,
@@ -14,7 +15,14 @@ const event: BotEvent = {
       command.execute(i);
     }
     if (i.isButton()) {
-      await i.reply({ content: 'test', ephemeral: true });
+      const route = routeParse(i.customId);
+      const command: BotCommand = i.client.commands.get(route.commandName);
+      const button = command.buttons?.find((btn) => btn.route?.customId == route.customId);
+      if (!button || !button.handler) {
+        console.error('nyaa');
+        return;
+      }
+      await button.handler(i);
     }
     if (i.isModalSubmit()) {
       await ChoseiHostForm.handler(i);
