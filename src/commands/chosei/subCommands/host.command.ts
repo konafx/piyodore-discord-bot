@@ -51,15 +51,9 @@ export const HostSubCommand = {
       });
       return;
     }
+    const modal = ChoseiHostForm.cloneModal({ name, detail });
 
-    const modal = ChoseiHostForm.modal({
-      form: { title: 'Host new event' },
-      input: {
-        name: name ?? undefined,
-        detail: detail ?? undefined,
-      },
-    });
-
-    await i.showModal(modal);
+    const result = await i.showModal(modal);
+    console.log({ result });
   },
 };
